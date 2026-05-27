@@ -1,4 +1,4 @@
-<img width="1913" height="924" alt="image" src="https://github.com/user-attachments/assets/faabdd26-5c13-44f0-9a38-2930f15f3fcf" /><img width="1915" height="925" alt="image" src="https://github.com/user-attachments/assets/3f6c387b-1734-4ba3-96a7-b1723d005ad5" /><img width="1908" height="918" alt="image" src="https://github.com/user-attachments/assets/036c5a1c-da27-4987-bccc-08d0a4a8d02c" /># Analyzing DNS Log Files Using Splunk SIEM
+Splunk SIEM
 
 ## Introduction
 DNS (Domain Name System) logs are crucial for understanding network activity and identifying potential security threats. Splunk SIEM (Security Information and Event Management) provides powerful capabilities for analyzing DNS logs and detecting anomalies or malicious activities.
