@@ -39,6 +39,8 @@ Before starting the project, ensure the following:
 - Review the settings one final time to ensure accuracy.
 - Click **Submit** to upload the sample HTTP log file to Splunk.
 
+![](Splunkk/14.png)
+
 ### 7. Verify Upload
 - After uploading, navigate to the search bar in the Splunk interface.
 - Run a search query to verify that the uploaded HTTP events are visible.
@@ -54,14 +56,17 @@ Before starting the project, ensure the following:
 index=<your_http_index> sourcetype=<your_http_sourcetype>
 ```
 
+![](Splunkk/15.png)
+
 ### 2. Extract Relevant Fields
 - Identify key fields in HTTP logs such as timestamps, request methods, URLs, response codes, user agents, etc.
 - Use Splunk's field extraction capabilities or regular expressions to extract these fields for better analysis.
 - Example extraction command:
 ```
 | rex field=_raw "<regex_pattern>"
-
 ```
+
+![](Splunkk/16.png)
 
 ### 3. Analyze Web Traffic Patterns
 - Determine the distribution of request methods (GET, POST, etc.) to understand web traffic patterns.
@@ -69,16 +74,24 @@ index=<your_http_index> sourcetype=<your_http_sourcetype>
 index=<your_http_index> sourcetype=<your_http_sourcetype>
 | stats count by method
 ```
+
+![](Splunkk/17.png)
+
 - Identify top URLs or endpoints accessed by users.
 ```
 index=<your_http_index> sourcetype=<your_http_sourcetype>
 | top limit=10 uri
 ```
+
+![](Splunkk/18.png)
+
 - Analyze response codes to identify errors or successful requests.
 ```
 index=<your_http_index> sourcetype=<your_http_sourcetype>
 | stats count by status
 ```
+
+![](Splunkk/19.png)
 
 ### 4. Detect Anomalies
 - Look for unusual patterns in file transfer activity.
@@ -92,6 +105,9 @@ index=<your_http_index> sourcetype=<your_http_sourcetype>
 | stats count by status
 | where status >= 400
 ```
+
+![](Splunkk/20.png)
+
 - Investigate file transfers to or from suspicious IP addresses.
 ```
 index=<your_http_index> sourcetype=<your_http_sourcetype>
@@ -106,6 +122,7 @@ index=<your_http_index> sourcetype=<your_http_sourcetype>
 | search action="login" status="failed"
 | stats count by user
 ```
+
 - Analyze user session durations and access patterns:
 ```
 index=<your_http_index> sourcetype=<your_http_sourcetype>
