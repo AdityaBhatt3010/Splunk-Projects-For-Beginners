@@ -39,6 +39,8 @@ Before starting the project, ensure the following:
 - Review the settings one final time to ensure accuracy.
 - Click **Submit** to upload the sample FTP log file to Splunk.
 
+![](Splunkk/10.png)
+
 ### 7. Verify Upload
 - After uploading, navigate to the search bar in the Splunk interface.
 - Run a search query to verify that the uploaded FTP events are visible.
@@ -52,6 +54,8 @@ Before starting the project, ensure the following:
 ```
 index=<your_ftp_index> sourcetype=<your_ftp_sourcetype>
 ```
+
+![](Splunkk/11.png)
 
 ### 2.  Extract Relevant Fields
 - Identify key fields in FTP logs such as timestamps, source IP, username, commands, filenames, etc.
@@ -71,6 +75,16 @@ Explanation:
 - `(?<command>[A-Z]+)`: Matches and captures the FTP command (assuming it consists of uppercase letters).
 - `(?<file_path>\/[\w\/.-]+)`: Matches and captures the file path (assuming it starts with "/" and can contain alphanumeric characters, "/", ".", and "-").
 
+
+This is a generic one.
+For this specific file, we can use:
+```
+^(?P<timestamp>\d+\.\d+)\t(?P<username>[^\t]+)\t(?P<src_ip>[^\t]+)[^\t\n]*\t(?P<src_port>\d+)\t(?P<dest_ip>[^\t]+)\t(?P<dest_port>[^\t]+)[^>\n]*>\t\-\t(?P<command>\w+)\t(?P<file_path>[^\-]+)
+```
+
+![](Splunkk/12.png)
+
+![](Splunkk/13.png)
 
 ### 3. Analyze File Transfer Activity
 - Determine the frequency and volume of file transfers.
