@@ -1,4 +1,4 @@
-# Analyzing DNS Log Files Using Splunk SIEM
+<img width="1913" height="924" alt="image" src="https://github.com/user-attachments/assets/faabdd26-5c13-44f0-9a38-2930f15f3fcf" /><img width="1915" height="925" alt="image" src="https://github.com/user-attachments/assets/3f6c387b-1734-4ba3-96a7-b1723d005ad5" /><img width="1908" height="918" alt="image" src="https://github.com/user-attachments/assets/036c5a1c-da27-4987-bccc-08d0a4a8d02c" /># Analyzing DNS Log Files Using Splunk SIEM
 
 ## Introduction
 DNS (Domain Name System) logs are crucial for understanding network activity and identifying potential security threats. Splunk SIEM (Security Information and Event Management) provides powerful capabilities for analyzing DNS logs and detecting anomalies or malicious activities.
@@ -36,6 +36,8 @@ Before analyzing DNS logs in Splunk, ensure the following:
 - Review the settings one final time to ensure accuracy.
 - Click **Submit** to upload the sample DNS log file to Splunk.
 
+![](Splunkk/1.png)
+
 ### 7. Verify Upload
 - After uploading, navigate to the search bar in the Splunk interface.
 - Run a search query to verify that the uploaded DNS events are visible.
@@ -43,6 +45,7 @@ Before analyzing DNS logs in Splunk, ensure the following:
   ```spl
   index=<your_dns_index> sourcetype=<your_dns_sourcetype>
 
+![](Splunkk/2.png)
 
 ## Steps to Analyze DNS Log Files in Splunk SIEM
 
@@ -53,6 +56,8 @@ Before analyzing DNS logs in Splunk, ensure the following:
 index=* sourcetype=dns_sample
 ```
 
+![](Splunkk/3.png)
+
 ### 2. Extract Relevant Fields
 - Identify key fields in DNS logs such as source IP, destination IP, domain name, query type, response code, etc.   
 - As mentioned below,  | regex _raw="(?i)\b(dns|domain|query|response|port 53)\b": This regex searches for common DNS-related keywords in the raw event data.
@@ -61,6 +66,14 @@ index=* sourcetype=dns_sample
 index=* sourcetype=dns_sample | regex _raw="(?i)\b(dns|domain|query|response|port 53)\b"
 ```
 
+![](Splunkk/4.png)
+
+**Extracting More Interesting Fields**
+
+![](Splunkk/5.png)
+
+![](Splunkk/6.png)
+
 ### 3. Identify Anomalies
 - Look for unusual patterns or anomalies in DNS activity.
 - Example query to identify spikes
@@ -68,13 +81,15 @@ index=* sourcetype=dns_sample | regex _raw="(?i)\b(dns|domain|query|response|por
 index=_* OR index=* sourcetype=dns_sample  | stats count by fqdn
 ```
 
+![](Splunkk/7.png)
+
 ### 4. Find the top DNS sources
 - Use the top command to count the occurrences of each query type:   
 ```
 index=* sourcetype=dns_sample | top fqdn, src_ip
 ```
 
-
+![](Splunkk/8.png)
 
 ### 5. Investigate Suspicious Domains
 - Search for domains associated with known malicious activity or suspicious behavior.
@@ -83,6 +98,14 @@ index=* sourcetype=dns_sample | top fqdn, src_ip
 ```
 index=* sourcetype=dns_sample fqdn="maliciousdomain.com"
 ```
+
+### 6. Table Command
+- For better visualization in tabular manner.
+```
+index=_* OR index=* sourcetype=dnslogs | table src_ip, src_port, dest_ip, dest_port | dedup src_ip, dest_ip
+```
+
+![](Splunkk/9.png)
 
 ## Conclusion
 Analyzing DNS log files using Splunk SIEM enables security professionals to detect and respond to potential security incidents effectively. By understanding DNS activity and identifying anomalies, organizations can enhance their overall security posture and protect against various cyber threats.
